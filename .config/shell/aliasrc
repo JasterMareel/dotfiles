@@ -6,7 +6,7 @@ wisdoms(){
 }
 
 docker_here(){
-  image="${1:-ubuntu:jammy}"
+  image="${1:-ubuntu:noble}"
   docker run -it --rm -v "$(pwd)":"$(pwd)" -w "$(pwd)" "${image}"
 }
 
@@ -50,8 +50,14 @@ wttr() {
 # Creates a new python venv and activates it
 # preserves a venv if already exists
 # default venv name used is '.venv'
-venv_here (){
+venv_here(){
   venv="${1:-.venv}"
   python3 -m venv ${venv}
   source ${venv}/bin/activate
 }
+
+# Cleans python cache files recursively in current directory
+pyclean(){
+  find . | grep -E "(/__pycache__$|\.pyc$|\.pyo$)" | xargs rm -rf
+}
+
