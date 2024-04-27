@@ -91,3 +91,5 @@ source $HOME/.config/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighti
 # show at terminal startup
 wisdoms
 date
+# Auto Start zellij
+# eval "$(zellij setup --generate-auto-start zsh)"

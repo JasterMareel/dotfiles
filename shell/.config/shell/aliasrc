@@ -1,4 +1,4 @@
-#! /usr/bin/env sh
+#! /usr/bin/env bash
 
 wisdoms(){
   random_cow="$(cowsay -l | sed '1d' | tr ' ' '\n' | sort -R | head -1)"
@@ -41,7 +41,7 @@ wttr() {
   for p in $WTTR_PARAMS "$@"; do
     args+=" --data-urlencode $p "
   done
-  curl -fGsS -H "Accept-Language: ${LANG%_*}" $args --compressed "wttr.in/${location}"
+  curl -fGsS -H "Accept-Language: ${LANG%_*}" "$args" --compressed "wttr.in/${location}"
 }
 
 # wttr "$@"
@@ -52,8 +52,8 @@ wttr() {
 # default venv name used is '.venv'
 venv_here(){
   venv="${1:-.venv}"
-  python3 -m venv ${venv}
-  source ${venv}/bin/activate
+  python3 -m venv "${venv}"
+  source "${venv}/bin/activate"
 }
 
 # Cleans python cache files recursively in current directory
@@ -61,3 +61,15 @@ pyclean(){
   find . | grep -E "(/__pycache__$|\.pyc$|\.pyo$)" | xargs rm -rf
 }
 
+
+zj_attach(){
+  ZJ_SESSIONS=$(zellij list-sessions)
+  NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
+
+  if [ "${NO_SESSIONS}" -ge 2 ]; then
+    SELECTED_SESSION="$(echo "${ZJ_SESSIONS}" | fzf --ansi | awk '{print $1}')"
+    zellij attach "$SELECTED_SESSION"
+  else
+     zellij attach -c
+  fi
+}
