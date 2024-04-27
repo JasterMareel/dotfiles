@@ -81,8 +81,12 @@ source <(kubectl completion zsh)
 
 # Zsh autocompletions
 source $HOME/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # Load syntax highlighting; should be last.
 source $HOME/.config/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
+
+# Set up fzf key bindings and fuzzy completion
+# eval "$(fzf --zsh)"
 
 # show at terminal startup
 wisdoms
