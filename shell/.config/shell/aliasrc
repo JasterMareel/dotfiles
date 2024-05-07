@@ -62,12 +62,14 @@ pyclean(){
 }
 
 
+# Zellij related
+alias zj=zellij
 zj_attach(){
   ZJ_SESSIONS=$(zellij list-sessions)
   NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
 
   if [ "${NO_SESSIONS}" -ge 2 ]; then
-    SELECTED_SESSION="$(echo "${ZJ_SESSIONS}" | fzf --ansi | awk '{print $1}')"
+    SELECTED_SESSION="$(echo "${ZJ_SESSIONS}" | sk --ansi | awk '{print $1}')"
     zellij attach "$SELECTED_SESSION"
   else
      zellij attach -c
