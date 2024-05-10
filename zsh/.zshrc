@@ -81,10 +81,6 @@ source <(kubectl completion zsh)
 
 # Zsh autocompletions
 source $HOME/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# Load syntax highlighting; should be last.
-source $HOME/.config/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
-
 # Set up fzf key bindings and fuzzy completion
 # eval "$(fzf --zsh)"
 
@@ -93,3 +89,5 @@ wisdoms
 date
 # Auto Start zellij
 # eval "$(zellij setup --generate-auto-start zsh)"
+# Load syntax highlighting; should be last.
+source $HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
