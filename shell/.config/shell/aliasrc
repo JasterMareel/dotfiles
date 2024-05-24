@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
 
+alias l='eza -l --icons --git -a'
 wisdoms(){
   random_cow="$(cowsay -l | sed '1d' | tr ' ' '\n' | sort -R | head -1)"
   fortune | cowsay -f "$random_cow" | lolcat
