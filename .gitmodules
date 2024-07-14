@@ -1,6 +1,9 @@
-[submodule "alacritty/.config/alacritty/themes"]
+[submodule "alacritty-theme"]
 	path = alacritty/.config/alacritty/themes
 	url = git@github.com:alacritty/alacritty-theme.git
-[submodule "zsh/.config/zsh/plugins/zsh-syntax-highlighting"]
+[submodule "zsh-syntax-highlighting"]
 	path = zsh/.config/zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "zsh-autosuggestions"]
+	path = zsh/.config/zsh/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
