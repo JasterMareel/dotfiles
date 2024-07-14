@@ -1,5 +1,5 @@
-[submodule ".config/alacritty/themes"]
-	path = .config/alacritty/themes
+[submodule "alacritty/.config/alacritty/themes"]
+	path = alacritty/.config/alacritty/themes
 	url = git@github.com:alacritty/alacritty-theme.git
 [submodule "zsh/.config/plugins/zsh-autosuggestions"]
 	path = zsh/.config/plugins/zsh-autosuggestions
