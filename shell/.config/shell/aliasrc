@@ -1,18 +1,18 @@
 #! /usr/bin/env bash
 
 alias l='eza -l --icons --git -a'
-wisdoms(){
-  random_cow="$(cowsay -l | sed '1d' | tr ' ' '\n' | sort -R | head -1)"
-  fortune | cowsay -f "$random_cow" | lolcat
+wisdoms() {
+	random_cow="$(cowsay -l | sed '1d' | tr ' ' '\n' | sort -R | head -1)"
+	fortune | cowsay -f "$random_cow" | lolcat
 }
 
-docker_here(){
-  image="${1:-ubuntu:noble}"
-  docker run -it --rm -v "$(pwd)":"$(pwd)" -w "$(pwd)" "${image}"
+docker_here() {
+	image="${1:-ubuntu:noble}"
+	docker run -it --rm -v "$(pwd)":"$(pwd)" -w "$(pwd)" "${image}"
 }
 
-lvim_update(){
-  lvim +LvimUpdate +q
+lvim_update() {
+	lvim +LvimUpdate +q
 }
 #-----------------------------------------------------------------------------------------------
 #! /usr/bin/env bash
@@ -21,28 +21,28 @@ lvim_update(){
 # WTTR_PARAMS is space-separated URL parameters, many of which are single characters that can be
 # lumped together. For example, "F q m" behaves the same as "Fqm".
 if [[ -z "$WTTR_PARAMS" ]]; then
-  # Form localized URL parameters for curl
-  if [[ -t 1 ]] && [[ "$(tput cols)" -lt 125 ]]; then
-      WTTR_PARAMS+='n'
-  fi 2> /dev/null
-  for _token in $( locale LC_MEASUREMENT ); do
-    case $_token in
-      1) WTTR_PARAMS+='m' ;;
-      2) WTTR_PARAMS+='u' ;;
-    esac
-  done 2> /dev/null
-  unset _token
-  export WTTR_PARAMS
+	# Form localized URL parameters for curl
+	if [[ -t 1 ]] && [[ "$(tput cols)" -lt 125 ]]; then
+		WTTR_PARAMS+='n'
+	fi 2>/dev/null
+	for _token in $(locale LC_MEASUREMENT); do
+		case $_token in
+		1) WTTR_PARAMS+='m' ;;
+		2) WTTR_PARAMS+='u' ;;
+		esac
+	done 2>/dev/null
+	unset _token
+	export WTTR_PARAMS
 fi
 
 wttr() {
-  local location="${1// /+}"
-  command shift
-  local args=""
-  for p in $WTTR_PARAMS "$@"; do
-    args+=" --data-urlencode $p "
-  done
-  curl -fGsS -H "Accept-Language: ${LANG%_*}" "$args" --compressed "wttr.in/${location}"
+	local location="${1// /+}"
+	command shift
+	local args=""
+	for p in $WTTR_PARAMS "$@"; do
+		args+=" --data-urlencode $p "
+	done
+	curl -fGsS -H "Accept-Language: ${LANG%_*}" "$args" --compressed "wttr.in/${location}"
 }
 
 # wttr "$@"
@@ -51,28 +51,37 @@ wttr() {
 # Creates a new python venv and activates it
 # preserves a venv if already exists
 # default venv name used is '.venv'
-venv_here(){
-  venv="${1:-.venv}"
-  python3 -m venv "${venv}"
-  source "${venv}/bin/activate"
+venv_here() {
+	venv="${1:-.venv}"
+	python3 -m venv "${venv}"
+	source "${venv}/bin/activate"
 }
 
 # Cleans python cache files recursively in current directory
-pyclean(){
-  find . | grep -E "(/__pycache__$|\.pyc$|\.pyo$)" | xargs rm -rf
+pyclean() {
+	find . | grep -E "(/__pycache__$|\.pyc$|\.pyo$)" | xargs rm -rf
 }
-
 
 # Zellij related
 alias zj=zellij
-zj_attach(){
-  ZJ_SESSIONS=$(zellij list-sessions)
-  NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
+zj_attach() {
+	ZJ_SESSIONS=$(zellij list-sessions)
+	NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
 
-  if [ "${NO_SESSIONS}" -ge 2 ]; then
-    SELECTED_SESSION="$(echo "${ZJ_SESSIONS}" | sk --ansi | awk '{print $1}')"
-    zellij attach "$SELECTED_SESSION"
-  else
-     zellij attach -c
-  fi
+	if [ "${NO_SESSIONS}" -ge 2 ]; then
+		SELECTED_SESSION="$(echo "${ZJ_SESSIONS}" | sk --ansi | awk '{print $1}')"
+		zellij attach "$SELECTED_SESSION"
+	else
+		zellij attach -c
+	fi
+}
+start_natpmpc() {
+	while true; do
+		date
+		natpmpc -a 1 0 udp 60 && natpmpc -a 1 0 tcp 60 || {
+			echo -e "ERROR with natpmpc command \a"
+			break
+		}
+		sleep 45
+	done
 }
