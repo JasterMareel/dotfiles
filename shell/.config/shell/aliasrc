@@ -1,6 +1,7 @@
 #! /usr/bin/env bash
 
 alias l='eza -l --icons --git -a'
+
 wisdoms() {
 	random_cow="$(cowsay -l | sed '1d' | tr ' ' '\n' | sort -R | head -1)"
 	fortune | cowsay -f "$random_cow" | lolcat
@@ -75,6 +76,8 @@ zj_attach() {
 		zellij attach -c
 	fi
 }
+
+# Query natpmpc
 start_natpmpc() {
 	while true; do
 		date
@@ -84,4 +87,12 @@ start_natpmpc() {
 		}
 		sleep 45
 	done
+}
+
+# Use watchtower to update docker containers https://github.com/containrrr/watchtower/
+watchtower_this() {
+	docker run --rm \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		containrrr/watchtower \
+		--run-once "$@"
 }
