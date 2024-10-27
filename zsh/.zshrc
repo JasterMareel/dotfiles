@@ -7,10 +7,26 @@ setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
 
+# searching histroy
+bindkey -e
+bindkey '^n' history_search_forward
+bindkey '^p' history_search_backward
+
 # History in cache directory:
 HISTSIZE=10000000
-SAVEHIST=10000000
+SAVEHIST=$HISTSIZE
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # Load aliases and shortcuts if existent.
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc"
